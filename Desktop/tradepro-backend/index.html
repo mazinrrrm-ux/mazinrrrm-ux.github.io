@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TradePro - Advanced Trading & Risk Suite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0b0f17;
+            --card-bg: rgba(22, 31, 48, 0.7);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --accent-cyan: #00f2fe;
+            --accent-blue: #4facfe;
+            --accent-purple: #7f00ff;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            font-family: 'Cairo', 'Inter', sans-serif;
+            background: radial-gradient(circle at top right, #1a103c, var(--bg-main) 60%);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: rgba(11, 15, 23, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin: 0 12px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        nav a:hover, nav a.active { color: var(--accent-cyan); }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            padding: 6px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .ad-banner {
+            width: 100%;
+            max-width: 900px;
+            margin: 15px auto;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px dashed var(--border-color);
+            border-radius: 8px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        main { flex: 1; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+
+        .container {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 650px;
+            width: 100%;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .tabs {
+            display: flex; gap: 10px; margin-bottom: 25px;
+            background: rgba(0, 0, 0, 0.3); padding: 5px; border-radius: 12px;
+        }
+
+        .tab-btn {
+            flex: 1; padding: 12px; background: transparent; color: var(--text-muted);
+            border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: 0.3s;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: #fff;
+        }
+
+        .form-group { margin-bottom: 18px; }
+        label { display: block; margin-bottom: 8px; color: var(--text-muted); font-size: 0.88rem; }
+
+        input, select {
+            width: 100%; padding: 12px 15px; border-radius: 10px;
+            border: 1px solid var(--border-color); background: rgba(15, 23, 42, 0.6);
+            color: var(--text-main); box-sizing: border-box; font-size: 1rem;
+        }
+
+        .calc-btn {
+            width: 100%; padding: 14px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            color: #0b0f17; border: none; border-radius: 10px;
+            font-weight: 700; font-size: 1.05rem; cursor: pointer; transition: 0.3s;
+        }
+
+        .results {
+            margin-top: 25px; padding: 20px;
+            background: rgba(0, 0, 0, 0.2); border-radius: 12px; border: 1px solid var(--border-color);
+        }
+
+        .result-row { display: flex; justify-content: space-between; margin-bottom: 12px; }
+        .result-value { font-weight: 700; color: var(--accent-cyan); }
+
+        .pricing-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px; width: 100%; max-width: 800px; margin-top: 20px;
+        }
+
+        .price-card {
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 16px; padding: 25px; text-align: center;
+        }
+
+        .price-card.featured { border-color: var(--accent-cyan); }
+        .price { font-size: 2rem; font-weight: 700; color: var(--accent-cyan); margin: 15px 0; }
+
+        .qr-box { background: #fff; padding: 10px; border-radius: 12px; display: inline-block; margin: 15px 0; }
+        .qr-box img { width: 150px; height: 150px; }
+
+        .wallet-address {
+            background: rgba(0,0,0,0.4); padding: 8px 12px; border-radius: 6px;
+            font-family: monospace; font-size: 0.8rem; word-break: break-all; margin: 10px 0;
+        }
+
+        footer {
+            background: rgba(11, 15, 23, 0.9); border-top: 1px solid var(--border-color);
+            text-align: center; padding: 20px; font-size: 0.85rem; color: var(--text-muted); margin-top: auto;
+        }
+
+        .content-section { display: none; }
+        .content-section.active { display: block; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">TradePro Suite</div>
+    <nav>
+        <a onclick="showPage('tools')" class="active" id="nav-tools">الحاسبات</a>
+        <a onclick="showPage('pricing')" id="nav-pricing">الاشتراكات VIP</a>
+        <a onclick="showPage('about')" id="nav-about">من نحن</a>
+    </nav>
+    <button class="lang-btn" onclick="toggleLanguage()" id="lang-toggle">English</button>
+</header>
+
+<div class="ad-banner">
+    <script src="https://pl30890592.effectivecpmnetwork.com/bf/e4/e0/bfe4e031d6efe380546675af49454c46.js"></script>
+    <span>مساحة إعلانية - Advertisement Space</span>
+</div>
+
+<main>
+    <div id="tools" class="content-section active container">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchCalc('stocks')" id="tab-stocks">أسهم / كريبتو</button>
+            <button class="tab-btn" onclick="switchCalc('forex')" id="tab-forex">فوركس (Forex)</button>
+        </div>
+
+        <div id="stocks" class="calc-content">
+            <div class="form-group">
+                <label id="lbl-balance">رأس المال ($)</label>
+                <input type="number" id="accountBalance" value="1000">
+            </div>
+            <div class="form-group">
+                <label id="lbl-risk">نسبة المخاطرة (%)</label>
+                <input type="number" id="riskPercentage" value="2" step="0.5">
+            </div>
+            <div class="form-group">
+                <label id="lbl-entry">سعر الدخول ($)</label>
+                <input type="number" id="entryPrice" value="100">
+            </div>
+            <div class="form-group">
+                <label id="lbl-stop">سعر وقف الخسارة ($)</label>
+                <input type="number" id="stopLoss" value="95">
+            </div>
+            <button class="calc-btn" onclick="calculateStocks()" id="btn-calc-1">احسب حجم الصفقة</button>
+
+            <div class="results">
+                <div class="result-row">
+                    <span id="res-risk-amt">المبلغ المخاطر به:</span>
+                    <span class="result-value" id="riskAmount">$0.00</span>
+                </div>
+                <div class="result-row">
+                    <span id="res-pos-size">حجم الصفقة الإجمالي:</span>
+                    <span class="result-value" id="positionSize">$0.00</span>
+                </div>
+                <div class="result-row">
+                    <span id="res-units">عدد الوحدات/الأسهم:</span>
+                    <span class="result-value" id="units">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="forex" class="calc-content" style="display:none;">
+            <div class="form-group">
+                <label id="lbl-fbalance">رأس المال ($)</label>
+                <input type="number" id="forexBalance" value="1000">
+            </div>
+            <div class="form-group">
+                <label id="lbl-frisk">نسبة المخاطرة (%)</label>
+                <input type="number" id="forexRisk" value="1" step="0.5">
+            </div>
+            <div class="form-group">
+                <label id="lbl-pips">نقاط وقف الخسارة (Pips)</label>
+                <input type="number" id="pipSL" value="30">
+            </div>
+            <div class="form-group">
+                <label id="lbl-pair">زوج العملات</label>
+                <select id="currencyPair">
+                    <option value="10">EUR/USD, GBP/USD ($10/pip)</option>
+                    <option value="9">USD/JPY (~$9/pip)</option>
+                </select>
+            </div>
+            <button class="calc-btn" onclick="calculateForex()" id="btn-calc-2">احسب اللوت</button>
+
+            <div class="results">
+                <div class="result-row">
+                    <span id="res-frisk-amt">المبلغ المخاطر به:</span>
+                    <span class="result-value" id="forexRiskAmount">$0.00</span>
+                </div>
+                <div class="result-row">
+                    <span id="res-lot-size">حجم اللوت القياسي:</span>
+                    <span class="result-value" id="standardLot">0.00 Lot</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="pricing" class="content-section">
+        <h2 style="text-align:center; margin-bottom: 10px;" id="pricing-title">خطط الاشتراك VIP</h2>
+        <p style="text-align:center; color:var(--text-muted); margin-bottom: 30px;" id="pricing-sub">ادفع عبر USDT لتفعيل الاشتراك فوراً</p>
+        
+        <div class="pricing-grid">
+            <div class="price-card featured">
+                <h3 id="plan-monthly">اشتراك VIP</h3>
+                <div class="price">$19 <span style="font-size: 1rem; color: var(--text-muted);">/شهر</span></div>
+                
+                <div class="qr-box">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=TD52wwEx1yW26BzFkKM5pqdvpACgffKDzg" alt="USDT TRC20 QR">
+                </div>
+                <div>شبكة: <strong>TRC20 (Tron)</strong></div>
+                <div class="wallet-address" id="w1">TD52wwEx1yW26BzFkKM5pqdvpACgffKDzg</div>
+                
+                <div style="margin-top: 15px; border-top: 1px solid var(--border-color); padding-top: 12px;">
+                    <label style="font-size: 0.8rem; color: var(--text-muted);">التفعيل التلقائي الفوري:</label>
+                    <input type="text" id="txidInput" placeholder="أدخل رقم المعاملة TxID هنا" style="margin-top: 6px;">
+                    <button class="calc-btn" onclick="verifyAutoPayment(19)" style="margin-top: 8px; font-size: 0.9rem;">تفعيل الاشتراك الآن ⚡</button>
+                    <p id="payStatus" style="font-size: 0.85rem; margin-top: 8px; font-weight: bold;"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="about" class="content-section container">
+        <h2 id="about-title">من نحن</h2>
+        <p id="about-desc">منصة TradePro توفر أحدث أدوات التداول المالي وحساب إدارة المخاطر الدقيقة للأسهم، الكريبتو، والفوركس لمساعدة المتداولين على تحقيق ربحية مستدامة.</p>
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2026 TradePro Suite - All Rights Reserved.</p>
+</footer>
+
+<script>
+    let currentLang = 'ar';
+
+    function showPage(pageId) {
+        document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
+        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+    }
+
+    function switchCalc(type) {
+        const buttons = document.querySelectorAll('.tabs .tab-btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
+        if(type === 'stocks') {
+            buttons[0].classList.add('active');
+            document.getElementById('stocks').style.display = 'block';
+            document.getElementById('forex').style.display = 'none';
+        } else {
+            buttons[1].classList.add('active');
+            document.getElementById('stocks').style.display = 'none';
+            document.getElementById('forex').style.display = 'block';
+        }
+    }
+
+    function calculateStocks() {
+        const balance = parseFloat(document.getElementById('accountBalance').value) || 0;
+        const riskPercent = parseFloat(document.getElementById('riskPercentage').value) || 0;
+        const entry = parseFloat(document.getElementById('entryPrice').value) || 0;
+        const stop = parseFloat(document.getElementById('stopLoss').value) || 0;
+
+        if (entry <= 0 || stop <= 0 || entry === stop) {
+            alert('يرجى إدخال أسعار دخول ووقف خسارة صحيحة');
+            return;
+        }
+
+        const riskMoney = balance * (riskPercent / 100);
+        const priceRiskPerUnit = Math.abs(entry - stop);
+        const numberOfUnits = riskMoney / priceRiskPerUnit;
+        const totalPositionSize = numberOfUnits * entry;
+
+        document.getElementById('riskAmount').innerText = '$' + riskMoney.toFixed(2);
+        document.getElementById('positionSize').innerText = '$' + totalPositionSize.toFixed(2);
+        document.getElementById('units').innerText = numberOfUnits.toFixed(4);
+    }
+
+    function calculateForex() {
+        const balance = parseFloat(document.getElementById('forexBalance').value) || 0;
+        const riskPercent = parseFloat(document.getElementById('forexRisk').value) || 0;
+        const pips = parseFloat(document.getElementById('pipSL').value) || 0;
+        const pipValuePerLot = parseFloat(document.getElementById('currencyPair').value) || 10;
+
+        if (pips <= 0) {
+            alert('يرجى إدخال عدد نقاط وقف خسارة صحيح');
+            return;
+        }
+
+        const riskMoney = balance * (riskPercent / 100);
+        const lotSize = riskMoney / (pips * pipValuePerLot);
+
+        document.getElementById('forexRiskAmount').innerText = '$' + riskMoney.toFixed(2);
+        document.getElementById('standardLot').innerText = lotSize.toFixed(2) + ' Lot';
+    }
+
+    // دالة التحقق التلقائي
+    async function verifyAutoPayment(amount) {
+        const txid = document.getElementById('txidInput').value.trim();
+        const statusText = document.getElementById('payStatus');
+
+        if (!txid) {
+            alert('يرجى إدخال رقم المعاملة (TxID)');
+            return;
+        }
+
+        statusText.innerText = "جاري التحقق عبر البلوكشين...";
+        statusText.style.color = "var(--accent-blue)";
+
+        try {
+            const response = await fetch('/api/verify-payment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ txid: txid, expectedAmount: amount })
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                statusText.innerText = result.message;
+                statusText.style.color = "#10b981";
+                localStorage.setItem('vip_status', 'active');
+                setTimeout(() => { alert('مبارك! تم تفعيل اشتراكك بنجاح.'); }, 500);
+            } else {
+                statusText.innerText = result.message;
+                statusText.style.color = "#ef4444";
+            }
+        } catch (e) {
+            statusText.innerText = "حدث خطأ أثناء الاتصال بالسيرفر.";
+            statusText.style.color = "#ef4444";
+        }
+    }
+</script>
+</body>
+</html>
