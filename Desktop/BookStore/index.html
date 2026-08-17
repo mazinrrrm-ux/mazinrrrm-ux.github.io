@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookVault | Digital E-Books</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- الهيدر وشريط التنقل -->
+    <header>
+        <div class="logo">BookVault</div>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#books">E-Books</a></li>
+                <li><a href="#about">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- مكان مخصص للإعلانات مستقبلاً -->
+    <div class="ad-banner">
+        <p>-- Google AdSense Placeholder --</p>
+    </div>
+
+    <!-- قسم العرض الرئيسي -->
+    <section class="hero">
+        <h1>Premium E-Books for Instant Download</h1>
+        <p>Explore our best-selling digital collection and start reading now.</p>
+    </section>
+
+    <!-- قسم عرض الكتب -->
+    <section class="books-container" id="books">
+        <h2>Best Sellers</h2>
+        <div class="book-grid">
+            
+            <!-- الكتاب الأول (كتابك الخاص) -->
+            <div class="book-card">
+                <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=400&q=80" alt="The Ultimate Freelancers Playbook">
+                <h3>The Ultimate Freelancers Playbook</h3>
+                <p class="price">$14.99</p>
+                <button onclick="buyBook('The Ultimate Freelancers Playbook')">Buy Now</button>
+            </div>
+
+            <!-- الكتاب الثاني -->
+            <div class="book-card">
+                <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=400&q=80" alt="Success Mindset Book">
+                <h3>The Success Mindset</h3>
+                <p class="price">$9.99</p>
+                <button onclick="buyBook('The Success Mindset')">Buy Now</button>
+            </div>
+
+            <!-- الكتاب الثالث -->
+            <div class="book-card">
+                <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=400&q=80" alt="Financial Freedom Book">
+                <h3>Financial Freedom 101</h3>
+                <p class="price">$19.99</p>
+                <button onclick="buyBook('Financial Freedom 101')">Buy Now</button>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- مكان إعلاني سفلي -->
+    <div class="ad-banner">
+        <p>-- Google AdSense Placeholder --</p>
+    </div>
+
+    <!-- الفوتر -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 BookVault. All rights reserved.</p>
+            <ul class="footer-links">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
