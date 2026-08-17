@@ -6,15 +6,17 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// عنوان المحفظة الخاص بك للتأكيد
 const MY_WALLET = "TD52wwEx1yW26BzFkKM5pqdvpACgffKDzg";
 
-// بيانات بوت تلجرام الخاصة بك
-const TELEGRAM_BOT_TOKEN = "8835838949:AAFGZfnMF6X_k6ksxQdk9PHCwVXRJdmgNSU"; 
-const TELEGRAM_CHAT_ID = "6588373907";
+// بيانات التليجرام (يُفضل دائماً وضع التوكن في متغيرات البيئة process.env)
+const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || "8835838949:AAFGZfnMF6X_k6ksxQdk9PHCwVXRJdmgNSU"; 
+const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID || "6588373907";
 
-// دالة إرسال التنبيه لتلجرام
-async function sendTelegramAlert(txid, amount) {
-    const message = `🚨 *عملية دفع جديدة وتفعيل VIP!* \n\n💰 *المبلغ:* $${amount} USDT\n🔗 *رقم المعاملة (TxID):*\n\`${txid}\`\n\n✅ تم التحقق والتفعيل تلقائياً عبر البلوكشين.`;
+// دالة إرسال إشعار الدفع إلى التليجرام الخاص بك مباشرة
+async function sendTelegramAlert(details) {
+    const message = `🚨 *طلب اشتراك جديد (دفع مباشر)!* \n\n👛 *المحفظة:* \`${MY_WALLET}\`\n💬 *معلومات العميل:* ${details || 'تم طلب التأكيد من الموقع'}\n\n📌 يرجى مراجعة المحفظة وتفعيل الاشتراك للعميل.`;
+    
     try {
         await axios.post(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
             chat_id: TELEGRAM_CHAT_ID,
@@ -22,43 +24,28 @@ async function sendTelegramAlert(txid, amount) {
             parse_mode: 'Markdown'
         });
     } catch (err) {
-        console.error("فشل إرسال تنبيه تلجرام", err);
+        console.error("فشل إرسال تنبيه تلجرام:", err.message);
     }
 }
 
+// مسار الدفع المباشر (عندما يضغط العميل على تأكيد الدفع في الموقع)
 app.post('/api/verify-payment', async (req, res) => {
-    const { txid, expectedAmount } = req.body;
-
-    if (!txid) {
-        return res.status(400).json({ success: false, message: "يرجى إدخال رقم المعاملة (TxID)" });
-    }
+    const { note } = req.body;
 
     try {
-        const response = await axios.get(`https://api.trongrid.io/v1/accounts/${MY_WALLET}/transactions/trc20?limit=20`);
-        const transactions = response.data.data;
+        // إرسال إشعار فوري للتليجرام بأن هناك عميل يدفع الآن
+        await sendTelegramAlert(note);
 
-        const match = transactions.find(tx => 
-            tx.transaction_id === txid &&
-            tx.to === MY_WALLET &&
-            (parseFloat(tx.value) / 1000000) >= parseFloat(expectedAmount)
-        );
-
-        if (match) {
-            // إرسال تنبيه فور التحقق
-            await sendTelegramAlert(txid, expectedAmount);
-
-            return res.json({ 
-                success: true, 
-                message: "تم التحقق من الدفع وتفعيل الاشتراك بنجاح! ⚡" 
-            });
-        } else {
-            return res.json({ 
-                success: false, 
-                message: "لم يتم العثور على العملية بعد، تأكد من الـ TxID أو انتظر دقيقة لتأكيد الشبكة." 
-            });
-        }
+        return res.json({ 
+            success: true, 
+            message: "تم إرسال طلب الاشتراك بنجاح! سيتم التفعيل فور تأكيد التحويل.",
+            wallet: MY_WALLET
+        });
     } catch (error) {
-        return res.status(500).json({ success: false, message: "خطأ أثناء الاتصال بالبلوكشين." });
+        return res.status(500).json({ 
+            success: false, 
+            message: "حدث خطأ أثناء إرسال الطلب، يرجى المحاولة لاحقاً." 
+        });
     }
 });
 

@@ -356,47 +356,28 @@
         document.getElementById('standardLot').innerText = lotSize.toFixed(2) + ' Lot';
     }
 
-    // دالة التحقق التلقائي
-    async function verifyAutoPayment(amount) {
-        const txid = document.getElementById('txidInput').value.trim();
-        const statusText = document.getElementById('payStatus');
+ // دالة الاشتراك والتأكيد المباشر بدون الحاجة لسيرفر
+function verifyAutoPayment(amount) {
+    const statusText = document.getElementById('payStatus');
 
-        if (!txid) {
-            alert('يرجى إدخال رقم المعاملة (TxID)');
-            return;
-        }
-
-        statusText.innerText = "جاري التحقق عبر البلوكشين...";
-        statusText.style.color = "var(--accent-blue)";
-
-        try {
-            const response = await fetch('/api/verify-payment', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ txid: txid, expectedAmount: amount })
-            });
-
-            const result = await response.json();
-
-            if (result.success) {
-                statusText.innerText = result.message;
-                statusText.style.color = "#10b981";
-                localStorage.setItem('vip_status', 'active');
-                setTimeout(() => { alert('مبارك! تم تفعيل اشتراكك بنجاح.'); }, 500);
-            } else {
-                statusText.innerText = result.message;
-                statusText.style.color = "#ef4444";
-            }
-        } catch (e) {
-            statusText.innerText = "حدث خطأ أثناء الاتصال بالسيرفر.";
-            statusText.style.color = "#ef4444";
-        }
+    if (statusText) {
+        statusText.innerText = "جاري تحويلك لتأكيد الاشتراك...";
+        statusText.style.color = "#3b82f6";
     }
+
+    // حفظ حالة الاشتراك مؤقتاً في المتصفح
+    localStorage.setItem('vip_status', 'pending');
+
+    // نسخ عنوان المحفظة تلقائياً للعميل لتسهيل الدفع
+    navigator.clipboard.writeText('TD52wwEx1yW26BzFkKM5pqdvpACgffKDzg');
+
+    alert('تم نسخ عنوان المحفظة (USDT-TRC20) بنجاح! سيتم تحويلك الآن لتأكيد التحويل عبر التليجرام.');
+
+    // فتح حساب أو بوت التليجرام مباشرة في نافذة جديدة
+    window.open('https://t.me/YOUR_TELEGRAM_USERNAME', '_blank');
+}
 </script>
 <!-- Adsterra Social Bar -->
 <script src="https://pl30890592.effectivecpmnetwork.com/bf/e4/e0/bfe4e031d6efe380546675af49454c46.js"></script>
-
-<!-- Adsterra Popunder -->
-<script src="https://pl30890593.effectivecpmnetwork.com/97/42/74/9742745507bf0f11a192d4dcadcc440d.js"></script>
 </body>
 </html>
