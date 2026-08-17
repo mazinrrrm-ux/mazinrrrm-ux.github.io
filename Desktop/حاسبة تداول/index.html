@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أدوات وحاسبات التداول وإدارة المخاطر</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-color: #38bdf8;
+            --text-color: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-color: #334155;
+        }
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--accent-color);
+        }
+        nav {
+            margin-top: 10px;
+        }
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        nav a:hover {
+            color: var(--accent-color);
+        }
+        main {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .container {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 10px;
+            background-color: var(--bg-color);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+        .tab-btn.active {
+            background-color: var(--accent-color);
+            color: #0f172a;
+            border-color: var(--accent-color);
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .form-group {
+            margin-bottom: 14px;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background-color: #0f172a;
+            color: var(--text-color);
+            box-sizing: border-box;
+            font-size: 0.95rem;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+        button.calc-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--accent-color);
+            color: #0f172a;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .results {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+        .result-value {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+        footer {
+            background-color: var(--card-bg);
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            padding: 15px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        .text-page h2 {
+            color: var(--accent-color);
+            margin-top: 0;
+        }
+        .text-page p {
+            line-height: 1.6;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+    <script>
+  atOptions = {
+    'key' : 'f38411fef956ec559fe66a65238824c8',
+    'format' : 'iframe',
+    'height' : 90,
+    'width' : 728,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/f38411fef956ec559fe66a65238824c8/invoke.js"></script>
+
+
+<header>
+    <h1>منصة أدوات التداول المالي</h1>
+    <nav>
+        <a onclick="showPage('tools')">الأدوات والحاسبات</a>
+        <a onclick="showPage('disclaimer')">إخلاء المسؤولية</a>
+        <a onclick="showPage('privacy')">سياسة الخصوصية</a>
+        <a onclick="showPage('about')">من نحن</a>
+    </nav>
+</header>
+
+<main>
+    <div class="container">
+        
+        <!-- قسم الأدوات والحاسبات -->
+        <div id="tools" class="content-section active">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchCalc('stocks')">حجم الصفقة (أسهم/كريبتو)</button>
+                <button class="tab-btn" onclick="switchCalc('forex')">حاسبة اللوت (فوركس)</button>
+            </div>
+
+            <!-- حاسبة الأسهم والكريبتو -->
+            <div id="stocks" class="calc-content">
+                <div class="form-group">
+                    <label>رأس المال الإجمالي ($)</label>
+                    <input type="number" id="accountBalance" value="1000">
+                </div>
+                <div class="form-group">
+                    <label>نسبة المخاطرة (%)</label>
+                    <input type="number" id="riskPercentage" value="2" step="0.5">
+                </div>
+                <div class="form-group">
+                    <label>سعر الدخول ($)</label>
+                    <input type="number" id="entryPrice" value="100">
+                </div>
+                <div class="form-group">
+                    <label>سعر وقف الخسارة Stop Loss ($)</label>
+                    <input type="number" id="stopLoss" value="95">
+                </div>
+                <button class="calc-btn" onclick="calculateStocks()">احسب حجم الصفقة</button>
+
+                <div class="results">
+                    <div class="result-row">
+                        <span>المبلغ المخاطر به:</span>
+                        <span class="result-value" id="riskAmount">$0.00</span>
+                    </div>
+                    <div class="result-row">
+                        <span>حجم الصفقة الإجمالي:</span>
+                        <span class="result-value" id="positionSize">$0.00</span>
+                    </div>
+                    <div class="result-row">
+                        <span>عدد الوحدات/الأسهم:</span>
+                        <span class="result-value" id="units">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- حاسبة الفوركس -->
+            <div id="forex" class="calc-content" style="display:none;">
+                <div class="form-group">
+                    <label>رأس المال ($)</label>
+                    <input type="number" id="forexBalance" value="1000">
+                </div>
+                <div class="form-group">
+                    <label>نسبة المخاطرة (%)</label>
+                    <input type="number" id="forexRisk" value="1" step="0.5">
+                </div>
+                <div class="form-group">
+                    <label>عدد نقاط وقف الخسارة (Pips)</label>
+                    <input type="number" id="pipSL" value="30">
+                </div>
+                <div class="form-group">
+                    <label>زوج العملات</label>
+                    <select id="currencyPair">
+                        <option value="10">EUR/USD, GBP/USD (قيمة النقطة القياسية $10)</option>
+                        <option value="9">USD/JPY (قيمة تقريبية للنقطة $9)</option>
+                    </select>
+                </div>
+                <button class="calc-btn" onclick="calculateForex()">احسب حجم اللوت</button>
+
+                <div class="results">
+                    <div class="result-row">
+                        <span>المبلغ المخاطر به:</span>
+                        <span class="result-value" id="forexRiskAmount">$0.00</span>
+                    </div>
+                    <div class="result-row">
+                        <span>حجم اللوت القياسي (Standard Lot):</span>
+                        <span class="result-value" id="standardLot">0.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- صفحة إخلاء المسؤولية -->
+        <div id="disclaimer" class="content-section text-page">
+            <h2>إخلاء المسؤولية المالية</h2>
+            <p>جميع الأدوات والحاسبات المتوفرة على هذا الموقع مخصصة لأغراض تعليمية واستسترشادية فقط، ولا تُعتبر بأي شكل من الأشكال توصية ماليّة أو استثمارية للشراء أو البيع.</p>
+            <p>التداول في الأسواق المالية (الأسهم، العملات الرقمية، والفوركس) ينطوي على مخاطر عالية وقد يؤدي إلى خسارة رأس المال بالكامل. يرجى التداول بمسؤولية بناءً على تحليلك الخاص.</p>
+        </div>
+
+        <!-- صفحة سياسة الخصوصية -->
+        <div id="privacy" class="content-section text-page">
+            <h2>سياسة الخصوصية</h2>
+            <p>نحن نحترم خصوصية زوارنا. هذا الموقع لا يقوم بتخزين أي بيانات مالية أو مدخلات داخل خوادمنا، جميع الحسابات تتم برمجياً داخل متصفح المستخدم مباشرة (Client-side).</p>
+            <p>قد نستخدم شركات إعلان خارجية مثل Google AdSense لعرض الإعلانات عند زيارتك للموقع. تحق لهذه الشركات استخدام معلومات حول زياراتك لهذا الموقع من أجل تقديم إعلانات حول البضائع والخدمات التي تهمك عبر ملفات تعريف الارتباط (Cookies).</p>
+        </div>
+
+        <!-- صفحة من نحن -->
+        <div id="about" class="content-section text-page">
+            <h2>من نحن</h2>
+            <p>موقع متخصص يقدم أدوات وحاسبات مالية برمجية وسريعة لمساعدة المتداولين في مختلف الأسواق على إدارة المخاطر وتحديد حجوم الصفقات بدقة وحساب إدارة رأس المال بشكل منهجي.</p>
+            <p>للتواصل والاستفسارات البرمجية والإدارية، يمكنكم مراسلتنا عبر البريد الإلكتروني الخاص بإدارة الموقع.</p>
+        </div>
+
+    </div>
+</main>
+
+<footer>
+    <p>&copy; 2026 حاسبة التداول وإدارة المخاطر - جميع الحقوق محفوظة.</p>
+    <p>
+        <a onclick="showPage('disclaimer')">إخلاء المسؤولية</a> | 
+        <a onclick="showPage('privacy')">سياسة الخصوصية</a> | 
+        <a onclick="showPage('about')">من نحن</a>
+    </p>
+</footer>
+
+<script>
+    function showPage(pageId) {
+        document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+    }
+
+    function switchCalc(type) {
+        const buttons = document.querySelectorAll('.tab-btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
+        
+        if(type === 'stocks') {
+            buttons[0].classList.add('active');
+            document.getElementById('stocks').style.display = 'block';
+            document.getElementById('forex').style.display = 'none';
+        } else {
+            buttons[1].classList.add('active');
+            document.getElementById('stocks').style.display = 'none';
+            document.getElementById('forex').style.display = 'block';
+        }
+    }
+
+    function calculateStocks() {
+        const balance = parseFloat(document.getElementById('accountBalance').value) || 0;
+        const riskPercent = parseFloat(document.getElementById('riskPercentage').value) || 0;
+        const entry = parseFloat(document.getElementById('entryPrice').value) || 0;
+        const stop = parseFloat(document.getElementById('stopLoss').value) || 0;
+
+        if (entry <= 0 || stop <= 0 || entry === stop) {
+            alert('يرجى إدخال أسعار دخول ووقف خسارة صحيحة');
+            return;
+        }
+
+        const riskMoney = balance * (riskPercent / 100);
+        const priceRiskPerUnit = Math.abs(entry - stop);
+        const numberOfUnits = riskMoney / priceRiskPerUnit;
+        const totalPositionSize = numberOfUnits * entry;
+
+        document.getElementById('riskAmount').innerText = '$' + riskMoney.toFixed(2);
+        document.getElementById('positionSize').innerText = '$' + totalPositionSize.toFixed(2);
+        document.getElementById('units').innerText = numberOfUnits.toFixed(4);
+    }
+
+    function calculateForex() {
+        const balance = parseFloat(document.getElementById('forexBalance').value) || 0;
+        const riskPercent = parseFloat(document.getElementById('forexRisk').value) || 0;
+        const pips = parseFloat(document.getElementById('pipSL').value) || 0;
+        const pipValuePerLot = parseFloat(document.getElementById('currencyPair').value) || 10;
+
+        if (pips <= 0) {
+            alert('يرجى إدخال عدد نقاط وقف خسارة صحيح');
+            return;
+        }
+
+        const riskMoney = balance * (riskPercent / 100);
+        const lotSize = riskMoney / (pips * pipValuePerLot);
+
+        document.getElementById('forexRiskAmount').innerText = '$' + riskMoney.toFixed(2);
+        document.getElementById('standardLot').innerText = lotSize.toFixed(2) + ' Lot';
+    }
+</script>
+
+</body>
+</html>
